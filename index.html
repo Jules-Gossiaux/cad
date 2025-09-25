@@ -1,0 +1,2184 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Le Cercle des Amis Disparus</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'sage': '#9CAF88',
+                        'sage-light': '#B8C9A8',
+                        'sage-dark': '#7A8F6B',
+                        'mint': '#A8D5BA',
+                        'cream': '#F7F5F3',
+                        'warm-gray': '#F0EDE8'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .gradient-bg { background: linear-gradient(135deg, #F7F5F3 0%, #E8F5E8 100%); }
+        .card-shadow { box-shadow: 0 4px 20px rgba(156, 175, 136, 0.15); }
+        .btn-primary { background: linear-gradient(135deg, #9CAF88 0%, #7A8F6B 100%); }
+        .btn-primary:hover { background: linear-gradient(135deg, #7A8F6B 0%, #6B7F5C 100%); }
+        .page { display: none; }
+        .page.active { display: block; }
+    </style>
+</head>
+<body class="gradient-bg min-h-screen">
+    <!-- Header -->
+    <header class="bg-white/80 backdrop-blur-sm border-b border-sage-light/30 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-3 cursor-pointer" onclick="showPage('home')">
+                    <div class="w-10 h-10 bg-sage rounded-full flex items-center justify-center">
+                        <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2ZM21 9V7L15 1H5C3.9 1 3 1.9 3 3V21C3 22.1 3.9 23 5 23H19C20.1 23 21 22.1 21 21V9H21ZM19 21H5V3H13V9H19V21Z"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h1 class="text-xl font-semibold text-sage-dark">Le Cercle des Amis Disparus</h1>
+                        <p class="text-xs text-sage">Ensemble, créons du lien</p>
+                    </div>
+                </div>
+                <nav class="hidden md:flex items-center space-x-6">
+                    <a href="#" onclick="showPage('activities')" class="text-sage-dark hover:text-sage transition-colors">Activités</a>
+                    <a href="#" onclick="showPage('search')" class="text-sage-dark hover:text-sage transition-colors">Rechercher</a>
+                    <a href="#" onclick="showPage('profile')" class="text-sage-dark hover:text-sage transition-colors">Mon profil</a>
+                    <a href="#" onclick="showPage('invisible-wall')" class="text-sage-dark hover:text-sage transition-colors">Mur des invisibles</a>
+                    <button onclick="showPage('create-activity')" class="btn-primary text-white px-4 py-2 rounded-full text-sm font-medium transition-all hover:shadow-lg">
+                        Créer une activité
+                    </button>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- HOME PAGE -->
+    <div id="home" class="page active">
+        <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <!-- Welcome Section -->
+            <div class="text-center mb-12">
+                <div class="inline-flex items-center justify-center w-20 h-20 bg-mint/30 rounded-full mb-6">
+                    <svg class="w-10 h-10 text-sage-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                    </svg>
+                </div>
+                <h2 class="text-3xl font-bold text-sage-dark mb-4">Bienvenue dans votre cercle</h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">Découvrez des activités solidaires près de chez vous et créez des liens authentiques avec votre communauté.</p>
+            </div>
+
+            <!-- Quick Search -->
+            <div class="bg-white/70 backdrop-blur-sm rounded-2xl p-6 card-shadow mb-8">
+                <h3 class="text-xl font-semibold text-sage-dark mb-4">Recherche rapide</h3>
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
+                    <input type="text" placeholder="Ville ou adresse" class="w-full px-4 py-3 border border-sage-light/50 rounded-xl focus:ring-2 focus:ring-sage focus:border-transparent">
+                    <select class="w-full px-4 py-3 border border-sage-light/50 rounded-xl focus:ring-2 focus:ring-sage focus:border-transparent">
+                        <option>5 km</option>
+                        <option>10 km</option>
+                        <option>20 km</option>
+                    </select>
+                    <select class="w-full px-4 py-3 border border-sage-light/50 rounded-xl focus:ring-2 focus:ring-sage focus:border-transparent">
+                        <option>Toutes les tranches d'âge</option>
+                        <option>18-30 ans</option>
+                        <option>30-50 ans</option>
+                        <option>50+ ans</option>
+                    </select>
+                    <button onclick="showPage('search')" class="w-full btn-primary text-white py-3 rounded-xl font-medium transition-all hover:shadow-lg">
+                        Rechercher
+                    </button>
+                </div>
+            </div>
+
+            <!-- Activity Categories -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+                <div onclick="showPage('solidarity-activities')" class="bg-white/70 backdrop-blur-sm rounded-2xl p-6 card-shadow hover:shadow-xl transition-all cursor-pointer group">
+                    <div class="w-12 h-12 bg-mint/30 rounded-full flex items-center justify-center mb-4 group-hover:bg-mint/50 transition-colors">
+                        <svg class="w-6 h-6 text-sage-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-semibold text-sage-dark mb-2">Activités solidaires</h3>
+                    <p class="text-gray-600 text-sm">Ateliers avec réfugiés, visites aux personnes âgées</p>
+                    <div class="mt-4 text-sage text-sm font-medium">12 activités disponibles →</div>
+                </div>
+
+                <div onclick="showPage('nature-walks')" class="bg-white/70 backdrop-blur-sm rounded-2xl p-6 card-shadow hover:shadow-xl transition-all cursor-pointer group">
+                    <div class="w-12 h-12 bg-mint/30 rounded-full flex items-center justify-center mb-4 group-hover:bg-mint/50 transition-colors">
+                        <svg class="w-6 h-6 text-sage-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-semibold text-sage-dark mb-2">Balades & Nature</h3>
+                    <p class="text-gray-600 text-sm">Découvrez votre région en bonne compagnie</p>
+                    <div class="mt-4 text-sage text-sm font-medium">8 balades cette semaine →</div>
+                </div>
+
+                <div onclick="showPage('talk-circles')" class="bg-white/70 backdrop-blur-sm rounded-2xl p-6 card-shadow hover:shadow-xl transition-all cursor-pointer group">
+                    <div class="w-12 h-12 bg-mint/30 rounded-full flex items-center justify-center mb-4 group-hover:bg-mint/50 transition-colors">
+                        <svg class="w-6 h-6 text-sage-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-semibold text-sage-dark mb-2">Cercles de parole</h3>
+                    <p class="text-gray-600 text-sm">Espaces d'écoute bienveillante</p>
+                    <div class="mt-4 text-sage text-sm font-medium">5 cercles ouverts →</div>
+                </div>
+
+                <div onclick="showPage('invisible-space')" class="bg-white/70 backdrop-blur-sm rounded-2xl p-6 card-shadow hover:shadow-xl transition-all cursor-pointer group">
+                    <div class="w-12 h-12 bg-mint/30 rounded-full flex items-center justify-center mb-4 group-hover:bg-mint/50 transition-colors">
+                        <span class="text-lg">👁️</span>
+                    </div>
+                    <h3 class="text-lg font-semibold text-sage-dark mb-2">Espace Invisibles</h3>
+                    <p class="text-gray-600 text-sm">Lire, écouter sans participation directe</p>
+                    <div class="mt-4 text-sage text-sm font-medium">Accéder discrètement →</div>
+                </div>
+            </div>
+
+            <!-- Special Features -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div onclick="showPage('gift-activity')" class="bg-gradient-to-br from-mint/20 to-sage/20 rounded-2xl p-6 card-shadow cursor-pointer hover:shadow-xl transition-all">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <span class="text-2xl">🎁</span>
+                        <h3 class="text-lg font-semibold text-sage-dark">Offrir une activité</h3>
+                    </div>
+                    <p class="text-gray-600 text-sm">Sponsorisez anonymement une activité pour quelqu'un qui en a besoin</p>
+                </div>
+
+                <div onclick="showPage('partners')" class="bg-gradient-to-br from-sage/20 to-mint/20 rounded-2xl p-6 card-shadow cursor-pointer hover:shadow-xl transition-all">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <span class="text-2xl">🏪</span>
+                        <h3 class="text-lg font-semibold text-sage-dark">Partenaires locaux</h3>
+                    </div>
+                    <p class="text-gray-600 text-sm">Découvrez les commerces qui soutiennent notre communauté</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- ACTIVITIES PAGE -->
+    <div id="activities" class="page">
+        <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div class="flex items-center mb-8">
+                <button onclick="showPage('home')" class="mr-4 p-2 hover:bg-sage/10 rounded-full transition-colors">
+                    <svg class="w-5 h-5 text-sage-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                    </svg>
+                </button>
+                <div>
+                    <h1 class="text-3xl font-bold text-sage-dark">Toutes les activités</h1>
+                    <p class="text-gray-600">Découvrez toutes les activités disponibles près de vous</p>
+                </div>
+            </div>
+
+            <!-- Filter Tabs -->
+            <div class="flex flex-wrap gap-2 mb-8">
+                <button onclick="filterActivities('all')" id="filter-all" class="px-4 py-2 bg-sage text-white rounded-full text-sm font-medium">Toutes</button>
+                <button onclick="filterActivities('solidarity')" id="filter-solidarity" class="px-4 py-2 bg-gray-200 text-gray-600 rounded-full text-sm">Solidaires</button>
+                <button onclick="filterActivities('nature')" id="filter-nature" class="px-4 py-2 bg-gray-200 text-gray-600 rounded-full text-sm">Nature</button>
+                <button onclick="filterActivities('talk')" id="filter-talk" class="px-4 py-2 bg-gray-200 text-gray-600 rounded-full text-sm">Cercles de parole</button>
+                <button onclick="filterActivities('creative')" id="filter-creative" class="px-4 py-2 bg-gray-200 text-gray-600 rounded-full text-sm">Créatif</button>
+            </div>
+
+            <!-- Activities Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="activities-grid">
+                <!-- Solidarity Activities -->
+                <div class="activity-card solidarity bg-white/70 backdrop-blur-sm rounded-2xl p-6 card-shadow hover:shadow-xl transition-all cursor-pointer" onclick="showActivityDetail('jardinage')">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <span class="text-2xl">🌱</span>
+                        <div>
+                            <h3 class="font-semibold text-sage-dark">Atelier jardinage solidaire</h3>
+                            <p class="text-xs text-gray-500">Demain 14h • Belleville</p>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-600 mb-4">Apprenez à cultiver avec des réfugiés jardiniers. Échange de savoirs et moment de partage.</p>
+                    <div class="flex items-center justify-between text-xs text-gray-500">
+                        <span>👥 4/8 participants</span>
+                        <span class="text-sage font-medium">Rejoindre →</span>
+                    </div>
+                </div>
+
+                <div class="activity-card solidarity bg-white/70 backdrop-blur-sm rounded-2xl p-6 card-shadow hover:shadow-xl transition-all cursor-pointer" onclick="showActivityDetail('cafe-generations')">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <span class="text-2xl">☕</span>
+                        <div>
+                            <h3 class="font-semibold text-sage-dark">Café des générations</h3>
+                            <p class="text-xs text-gray-500">Jeudi 16h • République</p>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-600 mb-4">Rencontre intergénérationnelle. Écoutez les histoires de nos aînés et partagez les vôtres.</p>
+                    <div class="flex items-center justify-between text-xs text-gray-500">
+                        <span>👥 6/10 participants</span>
+                        <span class="text-sage font-medium">Rejoindre →</span>
+                    </div>
+                </div>
+
+                <div class="activity-card solidarity bg-white/70 backdrop-blur-sm rounded-2xl p-6 card-shadow hover:shadow-xl transition-all cursor-pointer" onclick="showActivityDetail('cuisine-refugies')">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <span class="text-2xl">🍲</span>
+                        <div>
+                            <h3 class="font-semibold text-sage-dark">Cuisine du monde</h3>
+                            <p class="text-xs text-gray-500">Samedi 10h • Ménilmontant</p>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-600 mb-4">Atelier cuisine avec des familles réfugiées. Découvrez leurs recettes traditionnelles.</p>
+                    <div class="flex items-center justify-between text-xs text-gray-500">
+                        <span>👥 3/6 participants</span>
+                        <span class="text-sage font-medium">Rejoindre →</span>
+                    </div>
+                </div>
+
+                <!-- Nature Activities -->
+                <div class="activity-card nature bg-white/70 backdrop-blur-sm rounded-2xl p-6 card-shadow hover:shadow-xl transition-all cursor-pointer">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <span class="text-2xl">🚶‍♀️</span>
+                        <div>
+                            <h3 class="font-semibold text-sage-dark">Balade au Bois de Vincennes</h3>
+                            <p class="text-xs text-gray-500">Dimanche 10h • Vincennes</p>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-600 mb-4">Découverte de la faune et flore du bois. Moment de détente et de connexion avec la nature.</p>
+                    <div class="flex items-center justify-between text-xs text-gray-500">
+                        <span>👥 8/15 participants</span>
+                        <span class="text-sage font-medium">Rejoindre →</span>
+                    </div>
+                </div>
+
+                <div class="activity-card nature bg-white/70 backdrop-blur-sm rounded-2xl p-6 card-shadow hover:shadow-xl transition-all cursor-pointer">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <span class="text-2xl">🌳</span>
+                        <div>
+                            <h3 class="font-semibold text-sage-dark">Nettoyage de parc</h3>
+                            <p class="text-xs text-gray-500">Samedi 9h • Buttes-Chaumont</p>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-600 mb-4">Action écologique collective. Prenons soin de nos espaces verts ensemble.</p>
+                    <div class="flex items-center justify-between text-xs text-gray-500">
+                        <span>👥 12/20 participants</span>
+                        <span class="text-sage font-medium">Rejoindre →</span>
+                    </div>
+                </div>
+
+                <!-- Talk Circles -->
+                <div class="activity-card talk bg-white/70 backdrop-blur-sm rounded-2xl p-6 card-shadow hover:shadow-xl transition-all cursor-pointer">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <span class="text-2xl">💬</span>
+                        <div>
+                            <h3 class="font-semibold text-sage-dark">Cercle de parole - Solitude</h3>
+                            <p class="text-xs text-gray-500">Mardi 19h • Bastille</p>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-600 mb-4">Espace d'écoute bienveillante pour parler de solitude et créer des liens.</p>
+                    <div class="flex items-center justify-between text-xs text-gray-500">
+                        <span>👥 5/8 participants</span>
+                        <span class="text-sage font-medium">Rejoindre →</span>
+                    </div>
+                </div>
+
+                <div class="activity-card talk bg-white/70 backdrop-blur-sm rounded-2xl p-6 card-shadow hover:shadow-xl transition-all cursor-pointer">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <span class="text-2xl">🤗</span>
+                        <div>
+                            <h3 class="font-semibold text-sage-dark">Groupe de soutien</h3>
+                            <p class="text-xs text-gray-500">Vendredi 18h • République</p>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-600 mb-4">Entraide et soutien mutuel dans un cadre sécurisé et bienveillant.</p>
+                    <div class="flex items-center justify-between text-xs text-gray-500">
+                        <span>👥 4/6 participants</span>
+                        <span class="text-sage font-medium">Rejoindre →</span>
+                    </div>
+                </div>
+
+                <!-- Creative Activities -->
+                <div class="activity-card creative bg-white/70 backdrop-blur-sm rounded-2xl p-6 card-shadow hover:shadow-xl transition-all cursor-pointer">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <span class="text-2xl">🎨</span>
+                        <div>
+                            <h3 class="font-semibold text-sage-dark">Atelier peinture collective</h3>
+                            <p class="text-xs text-gray-500">Mercredi 14h • Belleville</p>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-600 mb-4">Créons ensemble une fresque murale. Aucune expérience requise, juste l'envie de créer.</p>
+                    <div class="flex items-center justify-between text-xs text-gray-500">
+                        <span>👥 6/10 participants</span>
+                        <span class="text-sage font-medium">Rejoindre →</span>
+                    </div>
+                </div>
+
+                <div class="activity-card creative bg-white/70 backdrop-blur-sm rounded-2xl p-6 card-shadow hover:shadow-xl transition-all cursor-pointer">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <span class="text-2xl">🧵</span>
+                        <div>
+                            <h3 class="font-semibold text-sage-dark">Atelier couture solidaire</h3>
+                            <p class="text-xs text-gray-500">Vendredi 14h • Nation</p>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-600 mb-4">Réparez et créez ensemble. Échangez vos techniques de couture dans la bonne humeur.</p>
+                    <div class="flex items-center justify-between text-xs text-gray-500">
+                        <span>👥 4/6 participants</span>
+                        <span class="text-sage font-medium">Rejoindre →</span>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- CREATE ACTIVITY PAGE -->
+    <div id="create-activity" class="page">
+        <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div class="flex items-center mb-8">
+                <button onclick="showPage('home')" class="mr-4 p-2 hover:bg-sage/10 rounded-full transition-colors">
+                    <svg class="w-5 h-5 text-sage-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                    </svg>
+                </button>
+                <h1 class="text-3xl font-bold text-sage-dark">Créer une nouvelle activité</h1>
+            </div>
+
+            <form class="bg-white/70 backdrop-blur-sm rounded-2xl p-8 card-shadow space-y-6" onsubmit="createActivity(event)">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Titre de l'activité *</label>
+                        <input type="text" required class="w-full px-4 py-3 border border-sage-light/50 rounded-xl focus:ring-2 focus:ring-sage focus:border-transparent" placeholder="Ex: Atelier cuisine solidaire">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Catégorie *</label>
+                        <select required class="w-full px-4 py-3 border border-sage-light/50 rounded-xl focus:ring-2 focus:ring-sage focus:border-transparent">
+                            <option value="">Choisir une catégorie</option>
+                            <option>Activité solidaire</option>
+                            <option>Balade & Nature</option>
+                            <option>Cercle de parole</option>
+                            <option>Atelier créatif</option>
+                            <option>Sport & Bien-être</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Description *</label>
+                    <textarea required rows="4" class="w-full px-4 py-3 border border-sage-light/50 rounded-xl focus:ring-2 focus:ring-sage focus:border-transparent" placeholder="Décrivez votre activité, son objectif, ce que les participants peuvent attendre..."></textarea>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Date *</label>
+                        <input type="date" required class="w-full px-4 py-3 border border-sage-light/50 rounded-xl focus:ring-2 focus:ring-sage focus:border-transparent">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Heure de début *</label>
+                        <input type="time" required class="w-full px-4 py-3 border border-sage-light/50 rounded-xl focus:ring-2 focus:ring-sage focus:border-transparent">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Durée estimée</label>
+                        <select class="w-full px-4 py-3 border border-sage-light/50 rounded-xl focus:ring-2 focus:ring-sage focus:border-transparent">
+                            <option>1 heure</option>
+                            <option>2 heures</option>
+                            <option>3 heures</option>
+                            <option>Demi-journée</option>
+                            <option>Journée complète</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Lieu *</label>
+                    <input type="text" required class="w-full px-4 py-3 border border-sage-light/50 rounded-xl focus:ring-2 focus:ring-sage focus:border-transparent" placeholder="Adresse complète ou nom du lieu">
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Sexe attendu</label>
+                        <select class="w-full px-4 py-3 border border-sage-light/50 rounded-xl focus:ring-2 focus:ring-sage focus:border-transparent">
+                            <option>Mixte</option>
+                            <option>Femmes uniquement</option>
+                            <option>Hommes uniquement</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Min participants *</label>
+                        <input type="number" min="1" required class="w-full px-4 py-3 border border-sage-light/50 rounded-xl focus:ring-2 focus:ring-sage focus:border-transparent" placeholder="2">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Max participants *</label>
+                        <input type="number" min="1" required class="w-full px-4 py-3 border border-sage-light/50 rounded-xl focus:ring-2 focus:ring-sage focus:border-transparent" placeholder="8">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Max groupes sur ce lieu</label>
+                        <input type="number" min="1" class="w-full px-4 py-3 border border-sage-light/50 rounded-xl focus:ring-2 focus:ring-sage focus:border-transparent" placeholder="3">
+                    </div>
+                </div>
+
+                <div class="space-y-4">
+                    <div class="flex items-center space-x-3">
+                        <input type="checkbox" id="deconnexion" class="w-5 h-5 text-sage border-sage-light/50 rounded focus:ring-sage">
+                        <label for="deconnexion" class="text-sm text-gray-700">📵 Événement déconnexion (sans téléphones ni réseaux sociaux)</label>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <input type="checkbox" id="gratuit" class="w-5 h-5 text-sage border-sage-light/50 rounded focus:ring-sage">
+                        <label for="gratuit" class="text-sm text-gray-700">🆓 Activité entièrement gratuite</label>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <input type="checkbox" id="solidaire" class="w-5 h-5 text-sage border-sage-light/50 rounded focus:ring-sage">
+                        <label for="solidaire" class="text-sm text-gray-700">🤝 Activité solidaire (entraide, accompagnement)</label>
+                    </div>
+                </div>
+
+                <div class="flex justify-end space-x-4 pt-6">
+                    <button type="button" onclick="showPage('home')" class="px-6 py-3 border border-sage-light text-sage-dark rounded-xl hover:bg-sage-light/10 transition-colors">
+                        Annuler
+                    </button>
+                    <button type="submit" class="px-6 py-3 btn-primary text-white rounded-xl font-medium transition-all hover:shadow-lg">
+                        Créer l'activité
+                    </button>
+                </div>
+            </form>
+        </main>
+    </div>
+
+    <!-- SOLIDARITY ACTIVITIES PAGE -->
+    <div id="solidarity-activities" class="page">
+        <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div class="flex items-center mb-8">
+                <button onclick="showPage('home')" class="mr-4 p-2 hover:bg-sage/10 rounded-full transition-colors">
+                    <svg class="w-5 h-5 text-sage-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                    </svg>
+                </button>
+                <div>
+                    <h1 class="text-3xl font-bold text-sage-dark">Activités solidaires</h1>
+                    <p class="text-gray-600">Créons du lien par l'entraide et le partage</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div onclick="showActivityDetail('jardinage')" class="bg-white/70 backdrop-blur-sm rounded-2xl p-6 card-shadow hover:shadow-xl transition-all cursor-pointer">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <span class="text-2xl">🌱</span>
+                        <div>
+                            <h3 class="font-semibold text-sage-dark">Atelier jardinage solidaire</h3>
+                            <p class="text-xs text-gray-500">Demain 14h • Belleville</p>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-600 mb-4">Apprenez à cultiver avec des réfugiés jardiniers. Échange de savoirs et moment de partage.</p>
+                    <div class="flex items-center justify-between text-xs text-gray-500">
+                        <span>👥 4/8 participants</span>
+                        <span class="text-sage font-medium">Rejoindre →</span>
+                    </div>
+                </div>
+
+                <div onclick="showActivityDetail('cafe-generations')" class="bg-white/70 backdrop-blur-sm rounded-2xl p-6 card-shadow hover:shadow-xl transition-all cursor-pointer">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <span class="text-2xl">☕</span>
+                        <div>
+                            <h3 class="font-semibold text-sage-dark">Café des générations</h3>
+                            <p class="text-xs text-gray-500">Jeudi 16h • République</p>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-600 mb-4">Rencontre intergénérationnelle. Écoutez les histoires de nos aînés et partagez les vôtres.</p>
+                    <div class="flex items-center justify-between text-xs text-gray-500">
+                        <span>👥 6/10 participants</span>
+                        <span class="text-sage font-medium">Rejoindre →</span>
+                    </div>
+                </div>
+
+                <div onclick="showActivityDetail('cuisine-refugies')" class="bg-white/70 backdrop-blur-sm rounded-2xl p-6 card-shadow hover:shadow-xl transition-all cursor-pointer">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <span class="text-2xl">🍲</span>
+                        <div>
+                            <h3 class="font-semibold text-sage-dark">Cuisine du monde</h3>
+                            <p class="text-xs text-gray-500">Samedi 10h • Ménilmontant</p>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-600 mb-4">Atelier cuisine avec des familles réfugiées. Découvrez leurs recettes traditionnelles.</p>
+                    <div class="flex items-center justify-between text-xs text-gray-500">
+                        <span>👥 3/6 participants</span>
+                        <span class="text-sage font-medium">Rejoindre →</span>
+                    </div>
+                </div>
+
+                <div onclick="showActivityDetail('lecture-seniors')" class="bg-white/70 backdrop-blur-sm rounded-2xl p-6 card-shadow hover:shadow-xl transition-all cursor-pointer">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <span class="text-2xl">📚</span>
+                        <div>
+                            <h3 class="font-semibold text-sage-dark">Lecture aux seniors</h3>
+                            <p class="text-xs text-gray-500">Mercredi 15h • Bastille</p>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-600 mb-4">Moments de lecture partagée avec des personnes âgées isolées. Apportez vos livres préférés.</p>
+                    <div class="flex items-center justify-between text-xs text-gray-500">
+                        <span>👥 2/5 participants</span>
+                        <span class="text-sage font-medium">Rejoindre →</span>
+                    </div>
+                </div>
+
+                <div onclick="showActivityDetail('aide-devoirs')" class="bg-white/70 backdrop-blur-sm rounded-2xl p-6 card-shadow hover:shadow-xl transition-all cursor-pointer">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <span class="text-2xl">✏️</span>
+                        <div>
+                            <h3 class="font-semibold text-sage-dark">Aide aux devoirs</h3>
+                            <p class="text-xs text-gray-500">Lundi 17h • Oberkampf</p>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-600 mb-4">Accompagnement scolaire pour enfants de familles en difficulté. Votre aide fait la différence.</p>
+                    <div class="flex items-center justify-between text-xs text-gray-500">
+                        <span>👥 5/8 participants</span>
+                        <span class="text-sage font-medium">Rejoindre →</span>
+                    </div>
+                </div>
+
+                <div onclick="showActivityDetail('couture-solidaire')" class="bg-white/70 backdrop-blur-sm rounded-2xl p-6 card-shadow hover:shadow-xl transition-all cursor-pointer">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <span class="text-2xl">🧵</span>
+                        <div>
+                            <h3 class="font-semibold text-sage-dark">Atelier couture solidaire</h3>
+                            <p class="text-xs text-gray-500">Vendredi 14h • Nation</p>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-600 mb-4">Réparez et créez ensemble. Échangez vos techniques de couture dans la bonne humeur.</p>
+                    <div class="flex items-center justify-between text-xs text-gray-500">
+                        <span>👥 4/6 participants</span>
+                        <span class="text-sage font-medium">Rejoindre →</span>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- ACTIVITY DETAIL PAGE -->
+    <div id="activity-detail" class="page">
+        <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div class="flex items-center mb-8">
+                <button onclick="showPage('solidarity-activities')" class="mr-4 p-2 hover:bg-sage/10 rounded-full transition-colors">
+                    <svg class="w-5 h-5 text-sage-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                    </svg>
+                </button>
+                <div>
+                    <h1 class="text-3xl font-bold text-sage-dark" id="activity-title">Atelier jardinage solidaire</h1>
+                    <p class="text-gray-600" id="activity-subtitle">Demain 14h • Jardin partagé - Belleville</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div class="lg:col-span-2 space-y-6">
+                    <div class="bg-white/70 backdrop-blur-sm rounded-2xl p-6 card-shadow">
+                        <h3 class="text-xl font-semibold text-sage-dark mb-4">Description</h3>
+                        <p class="text-gray-600 mb-4" id="activity-description">
+                            Venez apprendre à cultiver des légumes avec des réfugiés jardiniers expérimentés. 
+                            Ce moment de partage permet un échange de savoirs dans la bienveillance. 
+                            Nous apprendrons ensemble les techniques de jardinage écologique tout en créant du lien social.
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 bg-sage/20 text-sage-dark rounded-full text-sm">🌱 Jardinage</span>
+                            <span class="px-3 py-1 bg-sage/20 text-sage-dark rounded-full text-sm">🤝 Solidaire</span>
+                            <span class="px-3 py-1 bg-sage/20 text-sage-dark rounded-full text-sm">🆓 Gratuit</span>
+                        </div>
+                    </div>
+
+                    <!-- Chat Section -->
+                    <div class="bg-white/70 backdrop-blur-sm rounded-2xl p-6 card-shadow">
+                        <h3 class="text-xl font-semibold text-sage-dark mb-4">Chat du groupe</h3>
+                        <div class="space-y-3 mb-4 max-h-64 overflow-y-auto">
+                            <div class="flex space-x-3">
+                                <div class="w-8 h-8 bg-sage/30 rounded-full flex items-center justify-center flex-shrink-0">
+                                    <span class="text-xs">M</span>
+                                </div>
+                                <div>
+                                    <p class="text-sm"><strong>Marie</strong> <span class="text-xs text-gray-500">il y a 2h</span></p>
+                                    <p class="text-sm text-gray-600">Hâte de découvrir vos techniques ! J'apporte mes graines de radis 🌱</p>
+                                </div>
+                            </div>
+                            <div class="flex space-x-3">
+                                <div class="w-8 h-8 bg-sage/30 rounded-full flex items-center justify-center flex-shrink-0">
+                                    <span class="text-xs">A</span>
+                                </div>
+                                <div>
+                                    <p class="text-sm"><strong>Ahmed</strong> <span class="text-xs text-gray-500">il y a 1h</span></p>
+                                    <p class="text-sm text-gray-600">Parfait ! Moi j'amène des outils et quelques plants de tomates</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex space-x-2">
+                            <input type="text" placeholder="Écrivez votre message..." class="flex-1 px-4 py-2 border border-sage-light/50 rounded-xl focus:ring-2 focus:ring-sage focus:border-transparent">
+                            <button class="px-4 py-2 btn-primary text-white rounded-xl">Envoyer</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-y-6">
+                    <div class="bg-white/70 backdrop-blur-sm rounded-2xl p-6 card-shadow">
+                        <h3 class="text-lg font-semibold text-sage-dark mb-4">Informations</h3>
+                        <div class="space-y-3 text-sm">
+                            <div class="flex items-center space-x-2">
+                                <span>📅</span>
+                                <span>Demain, 14h00 - 17h00</span>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <span>📍</span>
+                                <span>Jardin partagé, rue de Belleville</span>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <span>👥</span>
+                                <span>4/8 participants</span>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <span>🚻</span>
+                                <span>Mixte, tous âges</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white/70 backdrop-blur-sm rounded-2xl p-6 card-shadow">
+                        <h3 class="text-lg font-semibold text-sage-dark mb-4">Organisateur</h3>
+                        <div class="flex items-center space-x-3 mb-3">
+                            <div class="w-12 h-12 bg-sage/30 rounded-full flex items-center justify-center">
+                                <span>L</span>
+                            </div>
+                            <div>
+                                <p class="font-medium text-sage-dark">Lucie</p>
+                                <p class="text-xs text-gray-500">Membre depuis 2 ans</p>
+                            </div>
+                        </div>
+                        <p class="text-sm text-gray-600">Passionnée de jardinage et d'échanges interculturels</p>
+                    </div>
+
+                    <button onclick="joinActivity()" class="w-full btn-primary text-white py-4 rounded-xl font-medium text-lg transition-all hover:shadow-lg">
+                        Rejoindre l'activité
+                    </button>
+
+                    <div class="text-center">
+                        <p class="text-xs text-gray-500 mb-2">Réservation automatique si 8 participants</p>
+                        <p class="text-xs text-gray-500">Maximum 2 groupes sur ce lieu</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- INVISIBLE SPACE PAGE -->
+    <div id="invisible-space" class="page">
+        <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div class="flex items-center mb-8">
+                <button onclick="showPage('home')" class="mr-4 p-2 hover:bg-sage/10 rounded-full transition-colors">
+                    <svg class="w-5 h-5 text-sage-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                    </svg>
+                </button>
+                <div>
+                    <h1 class="text-3xl font-bold text-sage-dark">Espace Invisibles</h1>
+                    <p class="text-gray-600">Observez, lisez, écoutez en toute discrétion</p>
+                </div>
+            </div>
+
+            <div class="bg-mint/10 rounded-2xl p-6 mb-8">
+                <div class="flex items-center space-x-3 mb-4">
+                    <span class="text-2xl">👁️</span>
+                    <h2 class="text-xl font-semibold text-sage-dark">Bienvenue dans votre espace</h2>
+                </div>
+                <p class="text-gray-600">
+                    Cet espace est conçu pour ceux qui souhaitent découvrir notre communauté sans pression. 
+                    Vous pouvez lire les discussions, écouter les témoignages et vous exprimer par écrit quand vous le souhaitez.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="bg-white/70 backdrop-blur-sm rounded-2xl p-6 card-shadow">
+                    <h3 class="text-lg font-semibold text-sage-dark mb-4">Témoignages récents</h3>
+                    <div class="space-y-4">
+                        <div class="bg-warm-gray/30 rounded-lg p-4">
+                            <p class="text-sm text-gray-600 italic mb-2">
+                                "Grâce à cette app, j'ai retrouvé confiance en moi. Les premières fois, je ne faisais qu'observer, 
+                                puis petit à petit j'ai osé participer. Aujourd'hui j'organise mes propres activités !"
+                            </p>
+                            <p class="text-xs text-gray-500">- Anonyme, il y a 2 jours</p>
+                        </div>
+                        <div class="bg-warm-gray/30 rounded-lg p-4">
+                            <p class="text-sm text-gray-600 italic mb-2">
+                                "L'espace invisible m'a permis de comprendre l'esprit de la communauté avant de me lancer. 
+                                C'est rassurant de pouvoir prendre son temps."
+                            </p>
+                            <p class="text-xs text-gray-500">- Anonyme, il y a 1 semaine</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white/70 backdrop-blur-sm rounded-2xl p-6 card-shadow">
+                    <h3 class="text-lg font-semibold text-sage-dark mb-4">Discussions en cours</h3>
+                    <div class="space-y-3">
+                        <div class="border-l-4 border-sage/30 pl-4">
+                            <h4 class="text-sm font-medium text-sage-dark">Comment surmonter sa timidité ?</h4>
+                            <p class="text-xs text-gray-500">12 messages • Dernière activité il y a 3h</p>
+                        </div>
+                        <div class="border-l-4 border-sage/30 pl-4">
+                            <h4 class="text-sm font-medium text-sage-dark">Mes premières expériences solidaires</h4>
+                            <p class="text-xs text-gray-500">8 messages • Dernière activité il y a 5h</p>
+                        </div>
+                        <div class="border-l-4 border-sage/30 pl-4">
+                            <h4 class="text-sm font-medium text-sage-dark">Conseils pour organiser une activité</h4>
+                            <p class="text-xs text-gray-500">15 messages • Dernière activité il y a 1 jour</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white/70 backdrop-blur-sm rounded-2xl p-6 card-shadow mt-8">
+                <h3 class="text-lg font-semibold text-sage-dark mb-4">Votre journal personnel</h3>
+                <p class="text-gray-600 text-sm mb-4">Exprimez-vous librement, personne d'autre ne verra ces messages</p>
+                <textarea rows="4" class="w-full px-4 py-3 border border-sage-light/50 rounded-xl focus:ring-2 focus:ring-sage focus:border-transparent" placeholder="Écrivez vos pensées, vos questions, vos ressentis..."></textarea>
+                <div class="flex justify-end mt-4">
+                    <button class="px-6 py-2 btn-primary text-white rounded-xl text-sm">Sauvegarder</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- GIFT ACTIVITY PAGE -->
+    <div id="gift-activity" class="page">
+        <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div class="flex items-center mb-8">
+                <button onclick="showPage('home')" class="mr-4 p-2 hover:bg-sage/10 rounded-full transition-colors">
+                    <svg class="w-5 h-5 text-sage-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                    </svg>
+                </button>
+                <div>
+                    <h1 class="text-3xl font-bold text-sage-dark">Offrir une activité</h1>
+                    <p class="text-gray-600">Partagez la joie de participer avec quelqu'un qui en a besoin</p>
+                </div>
+            </div>
+
+            <div class="bg-gradient-to-br from-mint/10 to-sage/10 rounded-2xl p-8 mb-8">
+                <div class="flex items-center space-x-4 mb-6">
+                    <span class="text-4xl">🎁</span>
+                    <div>
+                        <h2 class="text-2xl font-semibold text-sage-dark">Un geste qui compte</h2>
+                        <p class="text-gray-600">Offrez anonymement ou non une activité à quelqu'un qui ne peut pas se l'offrir</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-white/70 backdrop-blur-sm rounded-2xl p-6 card-shadow">
+                    <h3 class="text-lg font-semibold text-sage-dark mb-4">Activités sponsorisées disponibles</h3>
+                    <div class="space-y-4">
+                        <div class="border border-sage-light/30 rounded-xl p-4">
+                            <div class="flex items-center space-x-3 mb-2">
+                                <span class="text-lg">☕</span>
+                                <h4 class="font-medium text-sage-dark">Café et partie de cartes</h4>
+                            </div>
+                            <p class="text-sm text-gray-600 mb-2">Café des Amis • 2 places disponibles</p>
+                            <p class="text-xs text-sage">Sponsorisé par le Café des Amis</p>
+                            <button class="mt-2 px-4 py-2 bg-sage/20 text-sage-dark rounded-lg text-sm hover:bg-sage/30 transition-colors">
+                                Offrir cette activité
+                            </button>
+                        </div>
+
+                        <div class="border border-sage-light/30 rounded-xl p-4">
+                            <div class="flex items-center space-x-3 mb-2">
+                                <span class="text-lg">🎨</span>
+                                <h4 class="font-medium text-sage-dark">Atelier créatif</h4>
+                            </div>
+                            <p class="text-sm text-gray-600 mb-2">Centre culturel • 3 places disponibles</p>
+                            <p class="text-xs text-sage">Sponsorisé par la Mairie du 11ème</p>
+                            <button class="mt-2 px-4 py-2 bg-sage/20 text-sage-dark rounded-lg text-sm hover:bg-sage/30 transition-colors">
+                                Offrir cette activité
+                            </button>
+                        </div>
+
+                        <div class="border border-sage-light/30 rounded-xl p-4">
+                            <div class="flex items-center space-x-3 mb-2">
+                                <span class="text-lg">🚶‍♀️</span>
+                                <h4 class="font-medium text-sage-dark">Balade nature en famille</h4>
+                            </div>
+                            <p class="text-sm text-gray-600 mb-2">Bois de Vincennes • 1 famille (4 pers.)</p>
+                            <p class="text-xs text-sage">Sponsorisé par un membre anonyme</p>
+                            <button class="mt-2 px-4 py-2 bg-sage/20 text-sage-dark rounded-lg text-sm hover:bg-sage/30 transition-colors">
+                                Offrir cette activité
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white/70 backdrop-blur-sm rounded-2xl p-6 card-shadow">
+                    <h3 class="text-lg font-semibold text-sage-dark mb-4">Créer une offre personnalisée</h3>
+                    <form class="space-y-4" onsubmit="createGift(event)">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Type d'activité</label>
+                            <select class="w-full px-4 py-3 border border-sage-light/50 rounded-xl focus:ring-2 focus:ring-sage focus:border-transparent">
+                                <option>Café/Restaurant</option>
+                                <option>Atelier créatif</option>
+                                <option>Activité sportive</option>
+                                <option>Sortie culturelle</option>
+                                <option>Balade nature</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Nombre de places</label>
+                            <input type="number" min="1" class="w-full px-4 py-3 border border-sage-light/50 rounded-xl focus:ring-2 focus:ring-sage focus:border-transparent" placeholder="1">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Budget approximatif</label>
+                            <select class="w-full px-4 py-3 border border-sage-light/50 rounded-xl focus:ring-2 focus:ring-sage focus:border-transparent">
+                                <option>5-10€ par personne</option>
+                                <option>10-20€ par personne</option>
+                                <option>20-50€ par personne</option>
+                                <option>Plus de 50€ par personne</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Message personnel (optionnel)</label>
+                            <textarea rows="3" class="w-full px-4 py-3 border border-sage-light/50 rounded-xl focus:ring-2 focus:ring-sage focus:border-transparent" placeholder="Un petit mot d'encouragement..."></textarea>
+                        </div>
+
+                        <div class="flex items-center space-x-3">
+                            <input type="checkbox" id="anonymous" class="w-4 h-4 text-sage border-sage-light/50 rounded focus:ring-sage">
+                            <label for="anonymous" class="text-sm text-gray-700">Rester anonyme</label>
+                        </div>
+
+                        <button type="submit" class="w-full btn-primary text-white py-3 rounded-xl font-medium transition-all hover:shadow-lg">
+                            Créer l'offre cadeau
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- SEARCH PAGE -->
+    <div id="search" class="page">
+        <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div class="flex items-center mb-8">
+                <button onclick="showPage('home')" class="mr-4 p-2 hover:bg-sage/10 rounded-full transition-colors">
+                    <svg class="w-5 h-5 text-sage-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                    </svg>
+                </button>
+                <div>
+                    <h1 class="text-3xl font-bold text-sage-dark">Rechercher des activités</h1>
+                    <p class="text-gray-600">Trouvez l'activité parfaite près de chez vous</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Filters -->
+                <div class="lg:col-span-1">
+                    <div class="bg-white/70 backdrop-blur-sm rounded-2xl p-6 card-shadow sticky top-24">
+                        <h3 class="text-lg font-semibold text-sage-dark mb-4">Filtres</h3>
+                        
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Localisation</label>
+                                <input type="text" placeholder="Ville ou adresse" class="w-full px-4 py-3 border border-sage-light/50 rounded-xl focus:ring-2 focus:ring-sage focus:border-transparent">
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Rayon</label>
+                                <select class="w-full px-4 py-3 border border-sage-light/50 rounded-xl focus:ring-2 focus:ring-sage focus:border-transparent">
+                                    <option>5 km</option>
+                                    <option>10 km</option>
+                                    <option>20 km</option>
+                                    <option>50 km</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Catégorie</label>
+                                <select class="w-full px-4 py-3 border border-sage-light/50 rounded-xl focus:ring-2 focus:ring-sage focus:border-transparent">
+                                    <option>Toutes les catégories</option>
+                                    <option>Activités solidaires</option>
+                                    <option>Balades & Nature</option>
+                                    <option>Cercles de parole</option>
+                                    <option>Ateliers créatifs</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Date</label>
+                                <input type="date" class="w-full px-4 py-3 border border-sage-light/50 rounded-xl focus:ring-2 focus:ring-sage focus:border-transparent">
+                            </div>
+
+                            <button class="w-full btn-primary text-white py-3 rounded-xl font-medium transition-all hover:shadow-lg">
+                                Rechercher
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Results and Map -->
+                <div class="lg:col-span-2 space-y-6">
+                    <!-- Interactive Map -->
+                    <div class="bg-white/70 backdrop-blur-sm rounded-2xl p-6 card-shadow">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-lg font-semibold text-sage-dark">Carte interactive</h3>
+                            <div class="flex space-x-2">
+                                <button onclick="toggleMapView('activities')" id="btn-activities" class="px-3 py-1 bg-sage text-white rounded-lg text-sm">Activités</button>
+                                <button onclick="toggleMapView('partners')" id="btn-partners" class="px-3 py-1 bg-gray-200 text-gray-600 rounded-lg text-sm">Partenaires</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Map Container -->
+                        <div class="relative bg-gradient-to-br from-mint/20 to-sage/20 rounded-xl h-80 overflow-hidden">
+                            <!-- Map Background -->
+                            <div class="absolute inset-0 opacity-30">
+                                <svg viewBox="0 0 400 300" class="w-full h-full">
+                                    <!-- Streets -->
+                                    <path d="M0 100 L400 120" stroke="#9CAF88" stroke-width="2" opacity="0.5"/>
+                                    <path d="M0 180 L400 170" stroke="#9CAF88" stroke-width="2" opacity="0.5"/>
+                                    <path d="M100 0 L120 300" stroke="#9CAF88" stroke-width="2" opacity="0.5"/>
+                                    <path d="M250 0 L270 300" stroke="#9CAF88" stroke-width="2" opacity="0.5"/>
+                                    <path d="M350 0 L330 300" stroke="#9CAF88" stroke-width="2" opacity="0.5"/>
+                                </svg>
+                            </div>
+                            
+                            <!-- Activity Markers -->
+                            <div id="activity-markers" class="absolute inset-0">
+                                <div class="absolute top-16 left-20 w-8 h-8 bg-sage rounded-full flex items-center justify-center text-white text-sm cursor-pointer hover:scale-110 transition-transform" onclick="showMapTooltip('jardinage', this)">🌱</div>
+                                <div class="absolute top-32 left-48 w-8 h-8 bg-sage rounded-full flex items-center justify-center text-white text-sm cursor-pointer hover:scale-110 transition-transform" onclick="showMapTooltip('cafe', this)">☕</div>
+                                <div class="absolute top-24 left-72 w-8 h-8 bg-sage rounded-full flex items-center justify-center text-white text-sm cursor-pointer hover:scale-110 transition-transform" onclick="showMapTooltip('cuisine', this)">🍲</div>
+                                <div class="absolute top-48 left-32 w-8 h-8 bg-sage rounded-full flex items-center justify-center text-white text-sm cursor-pointer hover:scale-110 transition-transform" onclick="showMapTooltip('lecture', this)">📚</div>
+                                <div class="absolute top-40 left-60 w-8 h-8 bg-sage rounded-full flex items-center justify-center text-white text-sm cursor-pointer hover:scale-110 transition-transform" onclick="showMapTooltip('sport', this)">🏃‍♀️</div>
+                            </div>
+                            
+                            <!-- Partner Markers -->
+                            <div id="partner-markers" class="absolute inset-0 hidden">
+                                <div class="absolute top-20 left-28 w-8 h-8 bg-mint rounded-full flex items-center justify-center text-white text-sm cursor-pointer hover:scale-110 transition-transform" onclick="showMapTooltip('cafe-amis', this)">☕</div>
+                                <div class="absolute top-36 left-52 w-8 h-8 bg-mint rounded-full flex items-center justify-center text-white text-sm cursor-pointer hover:scale-110 transition-transform" onclick="showMapTooltip('boulangerie', this)">🥖</div>
+                                <div class="absolute top-28 left-76 w-8 h-8 bg-mint rounded-full flex items-center justify-center text-white text-sm cursor-pointer hover:scale-110 transition-transform" onclick="showMapTooltip('librairie', this)">📚</div>
+                                <div class="absolute top-52 left-36 w-8 h-8 bg-mint rounded-full flex items-center justify-center text-white text-sm cursor-pointer hover:scale-110 transition-transform" onclick="showMapTooltip('sport-zen', this)">🏃‍♀️</div>
+                                <div class="absolute top-44 left-64 w-8 h-8 bg-mint rounded-full flex items-center justify-center text-white text-sm cursor-pointer hover:scale-110 transition-transform" onclick="showMapTooltip('atelier', this)">🎨</div>
+                            </div>
+                            
+                            <!-- Tooltip -->
+                            <div id="map-tooltip" class="absolute bg-white rounded-lg shadow-lg p-3 text-sm hidden z-10 max-w-48">
+                                <div id="tooltip-content"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Search Results -->
+                    <div class="space-y-4">
+                        <h3 class="text-lg font-semibold text-sage-dark">Résultats de recherche</h3>
+                        
+                        <div class="bg-white/70 backdrop-blur-sm rounded-2xl p-6 card-shadow">
+                            <div class="flex items-center space-x-4 mb-4">
+                                <span class="text-2xl">🌱</span>
+                                <div class="flex-1">
+                                    <h4 class="font-semibold text-sage-dark">Atelier jardinage solidaire</h4>
+                                    <p class="text-sm text-gray-600">Demain 14h • Belleville • 2.3 km</p>
+                                </div>
+                                <button onclick="showActivityDetail('jardinage')" class="px-4 py-2 btn-primary text-white rounded-lg text-sm">Voir</button>
+                            </div>
+                        </div>
+
+                        <div class="bg-white/70 backdrop-blur-sm rounded-2xl p-6 card-shadow">
+                            <div class="flex items-center space-x-4 mb-4">
+                                <span class="text-2xl">☕</span>
+                                <div class="flex-1">
+                                    <h4 class="font-semibold text-sage-dark">Café des générations</h4>
+                                    <p class="text-sm text-gray-600">Jeudi 16h • République • 1.8 km</p>
+                                </div>
+                                <button onclick="showActivityDetail('cafe-generations')" class="px-4 py-2 btn-primary text-white rounded-lg text-sm">Voir</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- PROFILE PAGE -->
+    <div id="profile" class="page">
+        <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div class="flex items-center mb-8">
+                <button onclick="showPage('home')" class="mr-4 p-2 hover:bg-sage/10 rounded-full transition-colors">
+                    <svg class="w-5 h-5 text-sage-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                    </svg>
+                </button>
+                <div>
+                    <h1 class="text-3xl font-bold text-sage-dark">Mon profil</h1>
+                    <p class="text-gray-600">Gérez vos informations et vos activités</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div class="lg:col-span-1">
+                    <div class="bg-white/70 backdrop-blur-sm rounded-2xl p-6 card-shadow text-center">
+                        <div class="w-24 h-24 bg-sage/30 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-3xl text-sage-dark">M</span>
+                        </div>
+                        <h3 class="text-xl font-semibold text-sage-dark mb-2">Marie Dubois</h3>
+                        <p class="text-gray-600 text-sm mb-4">Membre depuis mars 2023</p>
+                        <div class="space-y-2 text-sm">
+                            <div class="flex justify-between">
+                                <span>Activités créées:</span>
+                                <span class="font-medium">12</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Participations:</span>
+                                <span class="font-medium">28</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Note moyenne:</span>
+                                <span class="font-medium">⭐ 4.8/5</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-2 space-y-6">
+                    <div class="bg-white/70 backdrop-blur-sm rounded-2xl p-6 card-shadow">
+                        <h3 class="text-lg font-semibold text-sage-dark mb-4">Mes activités à venir</h3>
+                        <div class="space-y-3">
+                            <div class="flex items-center space-x-3 p-3 bg-warm-gray/30 rounded-lg">
+                                <span class="text-lg">🌱</span>
+                                <div class="flex-1">
+                                    <p class="font-medium text-sage-dark">Atelier jardinage solidaire</p>
+                                    <p class="text-xs text-gray-500">Demain 14h • Organisateur</p>
+                                </div>
+                                <button class="text-sage text-sm">Gérer</button>
+                            </div>
+                            <div class="flex items-center space-x-3 p-3 bg-warm-gray/30 rounded-lg">
+                                <span class="text-lg">☕</span>
+                                <div class="flex-1">
+                                    <p class="font-medium text-sage-dark">Café des générations</p>
+                                    <p class="text-xs text-gray-500">Jeudi 16h • Participant</p>
+                                </div>
+                                <button class="text-sage text-sm">Voir</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white/70 backdrop-blur-sm rounded-2xl p-6 card-shadow">
+                        <h3 class="text-lg font-semibold text-sage-dark mb-4">Paramètres</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between">
+                                <span class="text-gray-700">Notifications par email</span>
+                                <label class="relative inline-flex items-center cursor-pointer">
+                                    <input type="checkbox" checked class="sr-only peer">
+                                    <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sage/20 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-sage"></div>
+                                </label>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-gray-700">Profil visible</span>
+                                <label class="relative inline-flex items-center cursor-pointer">
+                                    <input type="checkbox" checked class="sr-only peer">
+                                    <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sage/20 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-sage"></div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- INVISIBLE WALL PAGE -->
+    <div id="invisible-wall" class="page">
+        <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div class="flex items-center mb-8">
+                <button onclick="showPage('home')" class="mr-4 p-2 hover:bg-sage/10 rounded-full transition-colors">
+                    <svg class="w-5 h-5 text-sage-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                    </svg>
+                </button>
+                <div>
+                    <h1 class="text-3xl font-bold text-sage-dark">Le Mur des Invisibles</h1>
+                    <p class="text-gray-600">Chat anonyme pour s'exprimer librement</p>
+                </div>
+            </div>
+
+            <div class="bg-gradient-to-br from-mint/10 to-sage/10 rounded-2xl p-6 mb-8">
+                <div class="flex items-center space-x-3 mb-4">
+                    <span class="text-2xl">👁️‍🗨️</span>
+                    <h2 class="text-xl font-semibold text-sage-dark">Espace d'expression libre</h2>
+                </div>
+                <p class="text-gray-600 text-sm">
+                    Partagez vos pensées, vos questions, vos ressentis en toute anonymité. 
+                    Cet espace est fait pour ceux qui souhaitent s'exprimer sans jugement et créer des liens authentiques.
+                </p>
+            </div>
+
+            <!-- Chat Messages -->
+            <div class="bg-white/70 backdrop-blur-sm rounded-2xl p-6 card-shadow mb-6">
+                <div class="space-y-4 max-h-96 overflow-y-auto mb-6" id="chat-messages">
+                    <div class="flex space-x-3">
+                        <div class="w-8 h-8 bg-sage/30 rounded-full flex items-center justify-center flex-shrink-0">
+                            <span class="text-xs">👤</span>
+                        </div>
+                        <div class="flex-1">
+                            <p class="text-sm text-gray-500 mb-1">Anonyme • il y a 2h</p>
+                            <p class="text-gray-700 bg-warm-gray/30 rounded-lg p-3 text-sm">
+                                Je me sens souvent seul(e) dans cette grande ville. Parfois j'aimerais juste avoir quelqu'un avec qui prendre un café sans avoir à expliquer toute ma vie...
+                            </p>
+                            <div class="flex items-center space-x-4 mt-2 text-xs text-gray-500">
+                                <button onclick="likeMessage(this)" class="flex items-center space-x-1 hover:text-sage transition-colors">
+                                    <span>❤️</span>
+                                    <span>12</span>
+                                </button>
+                                <button onclick="replyToMessage(this)" class="hover:text-sage transition-colors">Répondre</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex space-x-3 ml-8">
+                        <div class="w-8 h-8 bg-mint/30 rounded-full flex items-center justify-center flex-shrink-0">
+                            <span class="text-xs">👤</span>
+                        </div>
+                        <div class="flex-1">
+                            <p class="text-sm text-gray-500 mb-1">Anonyme • il y a 1h</p>
+                            <p class="text-gray-700 bg-mint/20 rounded-lg p-3 text-sm">
+                                @Anonyme Je comprends tellement ce sentiment ! Moi aussi j'ai longtemps hésité avant de rejoindre cette communauté. Maintenant je participe aux cafés du dimanche et ça m'a vraiment aidé. Courage ! 💙
+                            </p>
+                            <div class="flex items-center space-x-4 mt-2 text-xs text-gray-500">
+                                <button onclick="likeMessage(this)" class="flex items-center space-x-1 hover:text-sage transition-colors">
+                                    <span>❤️</span>
+                                    <span>8</span>
+                                </button>
+                                <button onclick="replyToMessage(this)" class="hover:text-sage transition-colors">Répondre</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex space-x-3">
+                        <div class="w-8 h-8 bg-sage/30 rounded-full flex items-center justify-center flex-shrink-0">
+                            <span class="text-xs">👤</span>
+                        </div>
+                        <div class="flex-1">
+                            <p class="text-sm text-gray-500 mb-1">Anonyme • il y a 45min</p>
+                            <p class="text-gray-700 bg-warm-gray/30 rounded-lg p-3 text-sm">
+                                Est-ce que quelqu'un d'autre a du mal à faire le premier pas pour rejoindre une activité ? J'ai envie de participer mais j'ai peur de ne pas être à ma place...
+                            </p>
+                            <div class="flex items-center space-x-4 mt-2 text-xs text-gray-500">
+                                <button onclick="likeMessage(this)" class="flex items-center space-x-1 hover:text-sage transition-colors">
+                                    <span>❤️</span>
+                                    <span>15</span>
+                                </button>
+                                <button onclick="replyToMessage(this)" class="hover:text-sage transition-colors">Répondre</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex space-x-3">
+                        <div class="w-8 h-8 bg-mint/30 rounded-full flex items-center justify-center flex-shrink-0">
+                            <span class="text-xs">👤</span>
+                        </div>
+                        <div class="flex-1">
+                            <p class="text-sm text-gray-500 mb-1">Anonyme • il y a 30min</p>
+                            <p class="text-gray-700 bg-mint/20 rounded-lg p-3 text-sm">
+                                Merci à tous ceux qui organisent des activités. Grâce à vous j'ai découvert le jardinage et rencontré des personnes formidables. Cette communauté change vraiment la vie ! 🌱
+                            </p>
+                            <div class="flex items-center space-x-4 mt-2 text-xs text-gray-500">
+                                <button onclick="likeMessage(this)" class="flex items-center space-x-1 hover:text-sage transition-colors">
+                                    <span>❤️</span>
+                                    <span>22</span>
+                                </button>
+                                <button onclick="replyToMessage(this)" class="hover:text-sage transition-colors">Répondre</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex space-x-3">
+                        <div class="w-8 h-8 bg-sage/30 rounded-full flex items-center justify-center flex-shrink-0">
+                            <span class="text-xs">👤</span>
+                        </div>
+                        <div class="flex-1">
+                            <p class="text-sm text-gray-500 mb-1">Anonyme • il y a 15min</p>
+                            <p class="text-gray-700 bg-warm-gray/30 rounded-lg p-3 text-sm">
+                                Petite question : est-ce qu'il y a des activités pour les personnes très timides ? J'aimerais participer mais j'ai besoin d'un cadre très bienveillant pour commencer...
+                            </p>
+                            <div class="flex items-center space-x-4 mt-2 text-xs text-gray-500">
+                                <button onclick="likeMessage(this)" class="flex items-center space-x-1 hover:text-sage transition-colors">
+                                    <span>❤️</span>
+                                    <span>5</span>
+                                </button>
+                                <button onclick="replyToMessage(this)" class="hover:text-sage transition-colors">Répondre</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Message Input -->
+                <div class="border-t border-sage-light/30 pt-4">
+                    <form onsubmit="sendMessage(event)" class="space-y-4">
+                        <textarea 
+                            id="message-input" 
+                            rows="3" 
+                            class="w-full px-4 py-3 border border-sage-light/50 rounded-xl focus:ring-2 focus:ring-sage focus:border-transparent resize-none" 
+                            placeholder="Partagez vos pensées, vos questions, vos ressentis... Vous êtes en sécurité ici."
+                        ></textarea>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-4 text-xs text-gray-500">
+                                <span>✨ Votre message sera anonyme</span>
+                                <span>🤝 Soyez bienveillant</span>
+                            </div>
+                            <button 
+                                type="submit" 
+                                class="px-6 py-2 btn-primary text-white rounded-xl font-medium transition-all hover:shadow-lg"
+                            >
+                                Envoyer
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Guidelines -->
+            <div class="bg-white/70 backdrop-blur-sm rounded-2xl p-6 card-shadow">
+                <h3 class="text-lg font-semibold text-sage-dark mb-4">Règles de bienveillance</h3>
+                <div class="space-y-2 text-sm text-gray-600">
+                    <div class="flex items-start space-x-2">
+                        <span class="text-sage mt-1">•</span>
+                        <span>Respectez l'anonymat de chacun</span>
+                    </div>
+                    <div class="flex items-start space-x-2">
+                        <span class="text-sage mt-1">•</span>
+                        <span>Écoutez sans juger, partagez avec bienveillance</span>
+                    </div>
+                    <div class="flex items-start space-x-2">
+                        <span class="text-sage mt-1">•</span>
+                        <span>Évitez les sujets polémiques ou les débats</span>
+                    </div>
+                    <div class="flex items-start space-x-2">
+                        <span class="text-sage mt-1">•</span>
+                        <span>Soutenez-vous mutuellement dans vos démarches</span>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- PARTNERS PAGE -->
+    <div id="partners" class="page">
+        <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div class="flex items-center mb-8">
+                <button onclick="showPage('home')" class="mr-4 p-2 hover:bg-sage/10 rounded-full transition-colors">
+                    <svg class="w-5 h-5 text-sage-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                    </svg>
+                </button>
+                <div>
+                    <h1 class="text-3xl font-bold text-sage-dark">Nos partenaires locaux</h1>
+                    <p class="text-gray-600">Découvrez les commerces qui soutiennent notre communauté</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="bg-white/70 backdrop-blur-sm rounded-2xl p-6 card-shadow">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <span class="text-2xl">☕</span>
+                        <div>
+                            <h3 class="font-semibold text-sage-dark">Café des Amis</h3>
+                            <p class="text-xs text-gray-500">📍 2 rue de la Paix</p>
+                        </div>
+                    </div>
+                    <div class="space-y-2 text-sm text-gray-600 mb-4">
+                        <p>• -20% pour les membres</p>
+                        <p>• Café gratuit offert chaque semaine</p>
+                        <p>• Espace de coworking gratuit</p>
+                    </div>
+                    <div class="flex space-x-2">
+                        <button onclick="showPartnerOffers('cafe-amis')" class="flex-1 px-4 py-2 bg-sage/20 text-sage-dark rounded-lg text-sm hover:bg-sage/30 transition-colors">
+                            Voir les offres
+                        </button>
+                        <button class="px-4 py-2 border border-sage-light text-sage-dark rounded-lg text-sm hover:bg-sage/10 transition-colors">
+                            Localiser
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bg-white/70 backdrop-blur-sm rounded-2xl p-6 card-shadow">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <span class="text-2xl">🥖</span>
+                        <div>
+                            <h3 class="font-semibold text-sage-dark">Boulangerie Bio</h3>
+                            <p class="text-xs text-gray-500">📍 15 avenue Voltaire</p>
+                        </div>
+                    </div>
+                    <div class="space-y-2 text-sm text-gray-600 mb-4">
+                        <p>• Pain gratuit en fin de journée</p>
+                        <p>• -15% sur les pâtisseries</p>
+                        <p>• Ateliers boulangerie mensuels</p>
+                    </div>
+                    <div class="flex space-x-2">
+                        <button onclick="showPartnerOffers('boulangerie-bio')" class="flex-1 px-4 py-2 bg-sage/20 text-sage-dark rounded-lg text-sm hover:bg-sage/30 transition-colors">
+                            Voir les offres
+                        </button>
+                        <button class="px-4 py-2 border border-sage-light text-sage-dark rounded-lg text-sm hover:bg-sage/10 transition-colors">
+                            Localiser
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bg-white/70 backdrop-blur-sm rounded-2xl p-6 card-shadow">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <span class="text-2xl">📚</span>
+                        <div>
+                            <h3 class="font-semibold text-sage-dark">Librairie Solidaire</h3>
+                            <p class="text-xs text-gray-500">📍 8 place du Marché</p>
+                        </div>
+                    </div>
+                    <div class="space-y-2 text-sm text-gray-600 mb-4">
+                        <p>• Ateliers lecture gratuits</p>
+                        <p>• Livres à prix libre</p>
+                        <p>• Échange de livres</p>
+                    </div>
+                    <div class="flex space-x-2">
+                        <button onclick="showPartnerOffers('librairie-solidaire')" class="flex-1 px-4 py-2 bg-sage/20 text-sage-dark rounded-lg text-sm hover:bg-sage/30 transition-colors">
+                            Voir les offres
+                        </button>
+                        <button class="px-4 py-2 border border-sage-light text-sage-dark rounded-lg text-sm hover:bg-sage/10 transition-colors">
+                            Localiser
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bg-white/70 backdrop-blur-sm rounded-2xl p-6 card-shadow">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <span class="text-2xl">🏃‍♀️</span>
+                        <div>
+                            <h3 class="font-semibold text-sage-dark">Salle de Sport Zen</h3>
+                            <p class="text-xs text-gray-500">📍 12 rue des Sports</p>
+                        </div>
+                    </div>
+                    <div class="space-y-2 text-sm text-gray-600 mb-4">
+                        <p>• Cours de yoga gratuits le dimanche</p>
+                        <p>• -30% sur l'abonnement mensuel</p>
+                        <p>• Séances découverte offertes</p>
+                    </div>
+                    <div class="flex space-x-2">
+                        <button onclick="showPartnerOffers('sport-zen')" class="flex-1 px-4 py-2 bg-sage/20 text-sage-dark rounded-lg text-sm hover:bg-sage/30 transition-colors">
+                            Voir les offres
+                        </button>
+                        <button class="px-4 py-2 border border-sage-light text-sage-dark rounded-lg text-sm hover:bg-sage/10 transition-colors">
+                            Localiser
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bg-white/70 backdrop-blur-sm rounded-2xl p-6 card-shadow">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <span class="text-2xl">🎨</span>
+                        <div>
+                            <h3 class="font-semibold text-sage-dark">Atelier Créatif</h3>
+                            <p class="text-xs text-gray-500">📍 5 rue de l'Art</p>
+                        </div>
+                    </div>
+                    <div class="space-y-2 text-sm text-gray-600 mb-4">
+                        <p>• Matériel fourni gratuitement</p>
+                        <p>• Cours de peinture solidaires</p>
+                        <p>• Exposition des œuvres</p>
+                    </div>
+                    <div class="flex space-x-2">
+                        <button onclick="showPartnerOffers('atelier-creatif')" class="flex-1 px-4 py-2 bg-sage/20 text-sage-dark rounded-lg text-sm hover:bg-sage/30 transition-colors">
+                            Voir les offres
+                        </button>
+                        <button class="px-4 py-2 border border-sage-light text-sage-dark rounded-lg text-sm hover:bg-sage/10 transition-colors">
+                            Localiser
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bg-white/70 backdrop-blur-sm rounded-2xl p-6 card-shadow">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <span class="text-2xl">🌱</span>
+                        <div>
+                            <h3 class="font-semibold text-sage-dark">Épicerie Bio Locale</h3>
+                            <p class="text-xs text-gray-500">📍 20 avenue Verte</p>
+                        </div>
+                    </div>
+                    <div class="space-y-2 text-sm text-gray-600 mb-4">
+                        <p>• Paniers solidaires à prix réduit</p>
+                        <p>• Ateliers cuisine bio</p>
+                        <p>• Produits locaux privilégiés</p>
+                    </div>
+                    <div class="flex space-x-2">
+                        <button onclick="showPartnerOffers('epicerie-bio')" class="flex-1 px-4 py-2 bg-sage/20 text-sage-dark rounded-lg text-sm hover:bg-sage/30 transition-colors">
+                            Voir les offres
+                        </button>
+                        <button class="px-4 py-2 border border-sage-light text-sage-dark rounded-lg text-sm hover:bg-sage/10 transition-colors">
+                            Localiser
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-gradient-to-br from-mint/10 to-sage/10 rounded-2xl p-8 mt-8">
+                <h2 class="text-2xl font-semibold text-sage-dark mb-4">Vous êtes commerçant ?</h2>
+                <p class="text-gray-600 mb-6">
+                    Rejoignez notre réseau de partenaires solidaires et participez à la création de liens sociaux dans votre quartier.
+                </p>
+                <button class="btn-primary text-white px-6 py-3 rounded-xl font-medium transition-all hover:shadow-lg">
+                    Devenir partenaire
+                </button>
+            </div>
+        </main>
+    </div>
+
+    <!-- PARTNER OFFERS PAGE -->
+    <div id="partner-offers" class="page">
+        <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div class="flex items-center mb-8">
+                <button onclick="showPage('partners')" class="mr-4 p-2 hover:bg-sage/10 rounded-full transition-colors">
+                    <svg class="w-5 h-5 text-sage-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                    </svg>
+                </button>
+                <div>
+                    <h1 class="text-3xl font-bold text-sage-dark" id="partner-name">Café des Amis</h1>
+                    <p class="text-gray-600" id="partner-address">2 rue de la Paix • Ouvert 7j/7</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div class="lg:col-span-2 space-y-6">
+                    <!-- Current Offers -->
+                    <div class="bg-white/70 backdrop-blur-sm rounded-2xl p-6 card-shadow">
+                        <h3 class="text-xl font-semibold text-sage-dark mb-4">Offres actuelles</h3>
+                        <div class="space-y-4" id="current-offers">
+                            <!-- Offers will be populated by JavaScript -->
+                        </div>
+                    </div>
+
+                    <!-- How to Use -->
+                    <div class="bg-white/70 backdrop-blur-sm rounded-2xl p-6 card-shadow">
+                        <h3 class="text-xl font-semibold text-sage-dark mb-4">Comment profiter des offres ?</h3>
+                        <div class="space-y-3 text-sm text-gray-600">
+                            <div class="flex items-start space-x-3">
+                                <span class="text-sage font-bold">1.</span>
+                                <span>Présentez votre profil membre sur l'application</span>
+                            </div>
+                            <div class="flex items-start space-x-3">
+                                <span class="text-sage font-bold">2.</span>
+                                <span>Mentionnez le code de l'offre au commerçant</span>
+                            </div>
+                            <div class="flex items-start space-x-3">
+                                <span class="text-sage font-bold">3.</span>
+                                <span>Profitez de votre réduction ou service gratuit !</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Reviews -->
+                    <div class="bg-white/70 backdrop-blur-sm rounded-2xl p-6 card-shadow">
+                        <h3 class="text-xl font-semibold text-sage-dark mb-4">Avis de la communauté</h3>
+                        <div class="space-y-4" id="partner-reviews">
+                            <!-- Reviews will be populated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-y-6">
+                    <!-- Partner Info -->
+                    <div class="bg-white/70 backdrop-blur-sm rounded-2xl p-6 card-shadow">
+                        <h3 class="text-lg font-semibold text-sage-dark mb-4">Informations</h3>
+                        <div class="space-y-3 text-sm" id="partner-info">
+                            <!-- Info will be populated by JavaScript -->
+                        </div>
+                    </div>
+
+                    <!-- Contact -->
+                    <div class="bg-white/70 backdrop-blur-sm rounded-2xl p-6 card-shadow">
+                        <h3 class="text-lg font-semibold text-sage-dark mb-4">Contact</h3>
+                        <div class="space-y-2 text-sm" id="partner-contact">
+                            <!-- Contact will be populated by JavaScript -->
+                        </div>
+                    </div>
+
+                    <!-- Quick Actions -->
+                    <div class="space-y-3">
+                        <button onclick="favoritePartner()" class="w-full px-4 py-3 bg-sage/20 text-sage-dark rounded-xl hover:bg-sage/30 transition-colors">
+                            ⭐ Ajouter aux favoris
+                        </button>
+                        <button onclick="sharePartner()" class="w-full px-4 py-3 border border-sage-light text-sage-dark rounded-xl hover:bg-sage/10 transition-colors">
+                            📤 Partager
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Bottom Navigation (Mobile) -->
+    <nav class="md:hidden fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-sm border-t border-sage-light/30">
+        <div class="flex justify-around py-2">
+            <button onclick="showPage('home')" class="flex flex-col items-center py-2 px-3 text-sage">
+                <svg class="w-5 h-5 mb-1" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+                </svg>
+                <span class="text-xs">Accueil</span>
+            </button>
+            <button onclick="showPage('activities')" class="flex flex-col items-center py-2 px-3 text-gray-400">
+                <svg class="w-5 h-5 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                </svg>
+                <span class="text-xs">Activités</span>
+            </button>
+            <button onclick="showPage('invisible-wall')" class="flex flex-col items-center py-2 px-3 text-gray-400">
+                <svg class="w-5 h-5 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                </svg>
+                <span class="text-xs">Mur</span>
+            </button>
+            <button onclick="showPage('profile')" class="flex flex-col items-center py-2 px-3 text-gray-400">
+                <svg class="w-5 h-5 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                </svg>
+                <span class="text-xs">Profil</span>
+            </button>
+        </div>
+    </nav>
+
+    <script>
+        function showPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // Show selected page
+            document.getElementById(pageId).classList.add('active');
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+
+        function showActivityDetail(activityId) {
+            // Update activity details based on ID
+            const activities = {
+                'jardinage': {
+                    title: 'Atelier jardinage solidaire',
+                    subtitle: 'Demain 14h • Jardin partagé - Belleville',
+                    description: 'Venez apprendre à cultiver des légumes avec des réfugiés jardiniers expérimentés. Ce moment de partage permet un échange de savoirs dans la bienveillance. Nous apprendrons ensemble les techniques de jardinage écologique tout en créant du lien social.'
+                },
+                'cafe-generations': {
+                    title: 'Café des générations',
+                    subtitle: 'Jeudi 16h • Café solidaire - République',
+                    description: 'Rencontre intergénérationnelle autour d\'un café. Écoutez les histoires de nos aînés et partagez les vôtres. Un moment privilégié d\'échange et de transmission dans un cadre chaleureux.'
+                }
+            };
+
+            const activity = activities[activityId];
+            if (activity) {
+                document.getElementById('activity-title').textContent = activity.title;
+                document.getElementById('activity-subtitle').textContent = activity.subtitle;
+                document.getElementById('activity-description').textContent = activity.description;
+            }
+
+            showPage('activity-detail');
+        }
+
+        function createActivity(event) {
+            event.preventDefault();
+            alert('Votre activité a été créée avec succès ! Elle sera visible après validation par notre équipe.');
+            showPage('home');
+        }
+
+        function joinActivity() {
+            alert('Vous avez rejoint l\'activité ! Un email de confirmation vous a été envoyé.');
+        }
+
+        function createGift(event) {
+            event.preventDefault();
+            alert('Votre offre cadeau a été créée ! Nous vous mettrons en relation avec une personne intéressée.');
+            showPage('home');
+        }
+
+        function toggleMapView(type) {
+            const activityMarkers = document.getElementById('activity-markers');
+            const partnerMarkers = document.getElementById('partner-markers');
+            const btnActivities = document.getElementById('btn-activities');
+            const btnPartners = document.getElementById('btn-partners');
+            
+            if (type === 'activities') {
+                activityMarkers.classList.remove('hidden');
+                partnerMarkers.classList.add('hidden');
+                btnActivities.className = 'px-3 py-1 bg-sage text-white rounded-lg text-sm';
+                btnPartners.className = 'px-3 py-1 bg-gray-200 text-gray-600 rounded-lg text-sm';
+            } else {
+                activityMarkers.classList.add('hidden');
+                partnerMarkers.classList.remove('hidden');
+                btnActivities.className = 'px-3 py-1 bg-gray-200 text-gray-600 rounded-lg text-sm';
+                btnPartners.className = 'px-3 py-1 bg-mint text-white rounded-lg text-sm';
+            }
+            
+            // Hide tooltip when switching views
+            document.getElementById('map-tooltip').classList.add('hidden');
+        }
+
+        function showMapTooltip(id, element) {
+            const tooltip = document.getElementById('map-tooltip');
+            const tooltipContent = document.getElementById('tooltip-content');
+            
+            const tooltips = {
+                'jardinage': {
+                    title: 'Atelier jardinage solidaire',
+                    info: 'Demain 14h • 4/8 participants',
+                    distance: '2.3 km'
+                },
+                'cafe': {
+                    title: 'Café des générations',
+                    info: 'Jeudi 16h • 6/10 participants',
+                    distance: '1.8 km'
+                },
+                'cuisine': {
+                    title: 'Cuisine du monde',
+                    info: 'Samedi 10h • 3/6 participants',
+                    distance: '3.1 km'
+                },
+                'lecture': {
+                    title: 'Lecture aux seniors',
+                    info: 'Mercredi 15h • 2/5 participants',
+                    distance: '1.2 km'
+                },
+                'sport': {
+                    title: 'Yoga en plein air',
+                    info: 'Dimanche 9h • 5/12 participants',
+                    distance: '2.8 km'
+                },
+                'cafe-amis': {
+                    title: 'Café des Amis',
+                    info: '-20% pour les membres',
+                    distance: '2 rue de la Paix'
+                },
+                'boulangerie': {
+                    title: 'Boulangerie Bio',
+                    info: 'Pain gratuit en fin de journée',
+                    distance: '15 avenue Voltaire'
+                },
+                'librairie': {
+                    title: 'Librairie Solidaire',
+                    info: 'Ateliers lecture gratuits',
+                    distance: '8 place du Marché'
+                },
+                'sport-zen': {
+                    title: 'Salle de Sport Zen',
+                    info: 'Cours de yoga gratuits le dimanche',
+                    distance: '12 rue des Sports'
+                },
+                'atelier': {
+                    title: 'Atelier Créatif',
+                    info: 'Matériel fourni gratuitement',
+                    distance: '5 rue de l\'Art'
+                }
+            };
+            
+            const data = tooltips[id];
+            if (data) {
+                tooltipContent.innerHTML = `
+                    <div class="font-semibold text-sage-dark">${data.title}</div>
+                    <div class="text-xs text-gray-600 mt-1">${data.info}</div>
+                    <div class="text-xs text-gray-500 mt-1">${data.distance}</div>
+                `;
+                
+                // Position tooltip near the marker
+                const rect = element.getBoundingClientRect();
+                const mapRect = element.closest('.relative').getBoundingClientRect();
+                
+                tooltip.style.left = (rect.left - mapRect.left + 35) + 'px';
+                tooltip.style.top = (rect.top - mapRect.top - 10) + 'px';
+                tooltip.classList.remove('hidden');
+                
+                // Hide tooltip after 3 seconds
+                setTimeout(() => {
+                    tooltip.classList.add('hidden');
+                }, 3000);
+            }
+        }
+
+        function filterActivities(category) {
+            const cards = document.querySelectorAll('.activity-card');
+            const buttons = document.querySelectorAll('[id^="filter-"]');
+            
+            // Reset all buttons
+            buttons.forEach(btn => {
+                btn.className = 'px-4 py-2 bg-gray-200 text-gray-600 rounded-full text-sm';
+            });
+            
+            // Activate selected button
+            document.getElementById(`filter-${category}`).className = 'px-4 py-2 bg-sage text-white rounded-full text-sm font-medium';
+            
+            // Show/hide cards
+            cards.forEach(card => {
+                if (category === 'all' || card.classList.contains(category)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        function sendMessage(event) {
+            event.preventDefault();
+            const input = document.getElementById('message-input');
+            const message = input.value.trim();
+            
+            if (message) {
+                const chatMessages = document.getElementById('chat-messages');
+                const messageDiv = document.createElement('div');
+                messageDiv.className = 'flex space-x-3';
+                
+                const now = new Date();
+                const timeString = 'à l\'instant';
+                
+                messageDiv.innerHTML = `
+                    <div class="w-8 h-8 bg-sage/30 rounded-full flex items-center justify-center flex-shrink-0">
+                        <span class="text-xs">👤</span>
+                    </div>
+                    <div class="flex-1">
+                        <p class="text-sm text-gray-500 mb-1">Anonyme • ${timeString}</p>
+                        <p class="text-gray-700 bg-warm-gray/30 rounded-lg p-3 text-sm">${message}</p>
+                        <div class="flex items-center space-x-4 mt-2 text-xs text-gray-500">
+                            <button onclick="likeMessage(this)" class="flex items-center space-x-1 hover:text-sage transition-colors">
+                                <span>❤️</span>
+                                <span>0</span>
+                            </button>
+                            <button onclick="replyToMessage(this)" class="hover:text-sage transition-colors">Répondre</button>
+                        </div>
+                    </div>
+                `;
+                
+                chatMessages.appendChild(messageDiv);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+                input.value = '';
+                
+                // Show confirmation
+                const button = event.target.querySelector('button[type="submit"]');
+                const originalText = button.textContent;
+                button.textContent = 'Envoyé !';
+                button.disabled = true;
+                
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.disabled = false;
+                }, 2000);
+            }
+        }
+
+        function likeMessage(button) {
+            const countSpan = button.querySelector('span:last-child');
+            let count = parseInt(countSpan.textContent);
+            count++;
+            countSpan.textContent = count;
+            
+            // Visual feedback
+            button.classList.add('text-sage');
+            button.disabled = true;
+        }
+
+        function replyToMessage(button) {
+            const input = document.getElementById('message-input');
+            input.focus();
+            input.placeholder = 'Répondre à ce message...';
+            
+            setTimeout(() => {
+                input.placeholder = 'Partagez vos pensées, vos questions, vos ressentis... Vous êtes en sécurité ici.';
+            }, 5000);
+        }
+
+        function showPartnerOffers(partnerId) {
+            const partners = {
+                'cafe-amis': {
+                    name: 'Café des Amis',
+                    address: '2 rue de la Paix • Ouvert 7j/7 de 7h à 20h',
+                    offers: [
+                        {
+                            title: 'Réduction membre',
+                            description: '-20% sur toutes les consommations',
+                            code: 'CERCLE20',
+                            validity: 'Valable tous les jours',
+                            icon: '💰'
+                        },
+                        {
+                            title: 'Café solidaire',
+                            description: 'Un café gratuit offert chaque semaine',
+                            code: 'GRATUIT1',
+                            validity: 'Limité à 1 par semaine',
+                            icon: '☕'
+                        },
+                        {
+                            title: 'Espace coworking',
+                            description: 'Accès gratuit à l\'espace de travail',
+                            code: 'WORK-FREE',
+                            validity: 'Du lundi au vendredi 9h-17h',
+                            icon: '💻'
+                        }
+                    ],
+                    info: [
+                        { icon: '🕒', text: 'Lun-Dim: 7h-20h' },
+                        { icon: '📞', text: '01 42 33 44 55' },
+                        { icon: '🌐', text: 'www.cafe-des-amis.fr' },
+                        { icon: '♿', text: 'Accessible PMR' },
+                        { icon: '🐕', text: 'Animaux acceptés' }
+                    ],
+                    contact: [
+                        { label: 'Téléphone', value: '01 42 33 44 55' },
+                        { label: 'Email', value: 'contact@cafe-des-amis.fr' },
+                        { label: 'Site web', value: 'www.cafe-des-amis.fr' }
+                    ],
+                    reviews: [
+                        {
+                            author: 'Marie L.',
+                            rating: 5,
+                            text: 'Accueil chaleureux et café excellent ! L\'espace coworking est parfait pour travailler au calme.',
+                            date: 'il y a 2 jours'
+                        },
+                        {
+                            author: 'Thomas K.',
+                            rating: 4,
+                            text: 'Super initiative avec les réductions pour les membres. L\'ambiance est très conviviale.',
+                            date: 'il y a 1 semaine'
+                        }
+                    ]
+                },
+                'boulangerie-bio': {
+                    name: 'Boulangerie Bio',
+                    address: '15 avenue Voltaire • Fermé le lundi',
+                    offers: [
+                        {
+                            title: 'Pain de fin de journée',
+                            description: 'Pain gratuit 1h avant fermeture',
+                            code: 'PAIN-SOIR',
+                            validity: 'Tous les soirs à partir de 18h',
+                            icon: '🥖'
+                        },
+                        {
+                            title: 'Pâtisseries membres',
+                            description: '-15% sur toutes les pâtisseries',
+                            code: 'PATISS15',
+                            validity: 'Valable tous les jours',
+                            icon: '🥐'
+                        },
+                        {
+                            title: 'Atelier boulangerie',
+                            description: 'Participation gratuite aux ateliers mensuels',
+                            code: 'ATELIER-FREE',
+                            validity: 'Sur inscription, 1er samedi du mois',
+                            icon: '👨‍🍳'
+                        }
+                    ],
+                    info: [
+                        { icon: '🕒', text: 'Mar-Dim: 6h30-19h' },
+                        { icon: '📞', text: '01 43 55 66 77' },
+                        { icon: '🌱', text: '100% bio et local' },
+                        { icon: '♿', text: 'Accessible PMR' }
+                    ],
+                    contact: [
+                        { label: 'Téléphone', value: '01 43 55 66 77' },
+                        { label: 'Email', value: 'info@boulangerie-bio.fr' }
+                    ],
+                    reviews: [
+                        {
+                            author: 'Sophie M.',
+                            rating: 5,
+                            text: 'Pain bio délicieux et geste solidaire avec le pain gratuit le soir. Bravo !',
+                            date: 'il y a 3 jours'
+                        }
+                    ]
+                },
+                'librairie-solidaire': {
+                    name: 'Librairie Solidaire',
+                    address: '8 place du Marché • Ouvert du mardi au samedi',
+                    offers: [
+                        {
+                            title: 'Ateliers lecture',
+                            description: 'Participation gratuite aux ateliers hebdomadaires',
+                            code: 'LECTURE-FREE',
+                            validity: 'Tous les mercredis 18h',
+                            icon: '📖'
+                        },
+                        {
+                            title: 'Livres à prix libre',
+                            description: 'Sélection de livres à prix libre',
+                            code: 'PRIX-LIBRE',
+                            validity: 'Rayon spécial au fond de la librairie',
+                            icon: '💝'
+                        },
+                        {
+                            title: 'Échange de livres',
+                            description: 'Système d\'échange 1 pour 1',
+                            code: 'ECHANGE-1',
+                            validity: 'Livres en bon état uniquement',
+                            icon: '🔄'
+                        }
+                    ],
+                    info: [
+                        { icon: '🕒', text: 'Mar-Sam: 10h-19h' },
+                        { icon: '📞', text: '01 44 77 88 99' },
+                        { icon: '📚', text: 'Spécialisée littérature' },
+                        { icon: '♿', text: 'Accessible PMR' }
+                    ],
+                    contact: [
+                        { label: 'Téléphone', value: '01 44 77 88 99' },
+                        { label: 'Email', value: 'contact@librairie-solidaire.fr' }
+                    ],
+                    reviews: [
+                        {
+                            author: 'Paul R.',
+                            rating: 5,
+                            text: 'Les ateliers lecture sont formidables. Ambiance chaleureuse et découvertes garanties !',
+                            date: 'il y a 5 jours'
+                        }
+                    ]
+                },
+                'sport-zen': {
+                    name: 'Salle de Sport Zen',
+                    address: '12 rue des Sports • Ouvert 7j/7',
+                    offers: [
+                        {
+                            title: 'Yoga du dimanche',
+                            description: 'Cours de yoga gratuits tous les dimanches',
+                            code: 'YOGA-DIM',
+                            validity: 'Dimanches 10h-11h',
+                            icon: '🧘‍♀️'
+                        },
+                        {
+                            title: 'Abonnement membre',
+                            description: '-30% sur l\'abonnement mensuel',
+                            code: 'SPORT30',
+                            validity: 'Engagement 3 mois minimum',
+                            icon: '💪'
+                        },
+                        {
+                            title: 'Séances découverte',
+                            description: '3 séances d\'essai gratuites',
+                            code: 'ESSAI-3',
+                            validity: 'Nouveaux membres uniquement',
+                            icon: '🎯'
+                        }
+                    ],
+                    info: [
+                        { icon: '🕒', text: 'Lun-Dim: 6h-22h' },
+                        { icon: '📞', text: '01 45 88 99 00' },
+                        { icon: '🏃‍♀️', text: 'Fitness, yoga, pilates' },
+                        { icon: '♿', text: 'Accessible PMR' },
+                        { icon: '🚿', text: 'Vestiaires avec douches' }
+                    ],
+                    contact: [
+                        { label: 'Téléphone', value: '01 45 88 99 00' },
+                        { label: 'Email', value: 'info@sport-zen.fr' },
+                        { label: 'Site web', value: 'www.sport-zen.fr' }
+                    ],
+                    reviews: [
+                        {
+                            author: 'Léa D.',
+                            rating: 5,
+                            text: 'Les cours de yoga du dimanche sont parfaits pour commencer la semaine en douceur !',
+                            date: 'il y a 1 jour'
+                        }
+                    ]
+                },
+                'atelier-creatif': {
+                    name: 'Atelier Créatif',
+                    address: '5 rue de l\'Art • Fermé le lundi',
+                    offers: [
+                        {
+                            title: 'Matériel gratuit',
+                            description: 'Fourniture de tout le matériel pour les ateliers',
+                            code: 'MATERIEL-FREE',
+                            validity: 'Tous les ateliers',
+                            icon: '🎨'
+                        },
+                        {
+                            title: 'Cours solidaires',
+                            description: 'Cours de peinture à prix réduit',
+                            code: 'PEINTURE50',
+                            validity: 'Mercredis et samedis',
+                            icon: '🖌️'
+                        },
+                        {
+                            title: 'Exposition',
+                            description: 'Possibilité d\'exposer vos œuvres gratuitement',
+                            code: 'EXPO-FREE',
+                            validity: 'Sur sélection mensuelle',
+                            icon: '🖼️'
+                        }
+                    ],
+                    info: [
+                        { icon: '🕒', text: 'Mar-Dim: 14h-20h' },
+                        { icon: '📞', text: '01 46 99 00 11' },
+                        { icon: '🎨', text: 'Peinture, sculpture, dessin' },
+                        { icon: '♿', text: 'Accessible PMR' }
+                    ],
+                    contact: [
+                        { label: 'Téléphone', value: '01 46 99 00 11' },
+                        { label: 'Email', value: 'contact@atelier-creatif.fr' }
+                    ],
+                    reviews: [
+                        {
+                            author: 'Claire B.',
+                            rating: 5,
+                            text: 'Atelier formidable ! Les animateurs sont passionnés et le matériel de qualité.',
+                            date: 'il y a 4 jours'
+                        }
+                    ]
+                },
+                'epicerie-bio': {
+                    name: 'Épicerie Bio Locale',
+                    address: '20 avenue Verte • Ouvert 6j/7',
+                    offers: [
+                        {
+                            title: 'Paniers solidaires',
+                            description: 'Paniers de légumes à prix réduit (-40%)',
+                            code: 'PANIER40',
+                            validity: 'Vendredis, sur commande',
+                            icon: '🥕'
+                        },
+                        {
+                            title: 'Ateliers cuisine',
+                            description: 'Cours de cuisine bio gratuits',
+                            code: 'CUISINE-BIO',
+                            validity: '2e samedi du mois 15h',
+                            icon: '👨‍🍳'
+                        },
+                        {
+                            title: 'Produits locaux',
+                            description: '-10% sur tous les produits locaux',
+                            code: 'LOCAL10',
+                            validity: 'Produits marqués "local"',
+                            icon: '🌱'
+                        }
+                    ],
+                    info: [
+                        { icon: '🕒', text: 'Mar-Dim: 9h-19h' },
+                        { icon: '📞', text: '01 47 00 11 22' },
+                        { icon: '🌱', text: '100% bio et local' },
+                        { icon: '♿', text: 'Accessible PMR' },
+                        { icon: '🚲', text: 'Livraison à vélo' }
+                    ],
+                    contact: [
+                        { label: 'Téléphone', value: '01 47 00 11 22' },
+                        { label: 'Email', value: 'info@epicerie-bio-locale.fr' }
+                    ],
+                    reviews: [
+                        {
+                            author: 'Antoine V.',
+                            rating: 5,
+                            text: 'Produits de qualité et démarche solidaire exemplaire. Les paniers du vendredi sont parfaits !',
+                            date: 'il y a 2 jours'
+                        }
+                    ]
+                }
+            };
+
+            const partner = partners[partnerId];
+            if (partner) {
+                // Update partner info
+                document.getElementById('partner-name').textContent = partner.name;
+                document.getElementById('partner-address').textContent = partner.address;
+
+                // Populate offers
+                const offersContainer = document.getElementById('current-offers');
+                offersContainer.innerHTML = partner.offers.map(offer => `
+                    <div class="border border-sage-light/30 rounded-xl p-4">
+                        <div class="flex items-start space-x-3 mb-3">
+                            <span class="text-2xl">${offer.icon}</span>
+                            <div class="flex-1">
+                                <h4 class="font-semibold text-sage-dark">${offer.title}</h4>
+                                <p class="text-sm text-gray-600 mb-2">${offer.description}</p>
+                                <div class="flex items-center space-x-4 text-xs">
+                                    <span class="bg-sage/20 text-sage-dark px-2 py-1 rounded">Code: ${offer.code}</span>
+                                    <span class="text-gray-500">${offer.validity}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <button onclick="copyOfferCode('${offer.code}')" class="w-full px-4 py-2 bg-sage/10 text-sage-dark rounded-lg text-sm hover:bg-sage/20 transition-colors">
+                            📋 Copier le code
+                        </button>
+                    </div>
+                `).join('');
+
+                // Populate info
+                const infoContainer = document.getElementById('partner-info');
+                infoContainer.innerHTML = partner.info.map(info => `
+                    <div class="flex items-center space-x-2">
+                        <span>${info.icon}</span>
+                        <span>${info.text}</span>
+                    </div>
+                `).join('');
+
+                // Populate contact
+                const contactContainer = document.getElementById('partner-contact');
+                contactContainer.innerHTML = partner.contact.map(contact => `
+                    <div class="flex justify-between">
+                        <span class="text-gray-600">${contact.label}:</span>
+                        <span class="font-medium">${contact.value}</span>
+                    </div>
+                `).join('');
+
+                // Populate reviews
+                const reviewsContainer = document.getElementById('partner-reviews');
+                reviewsContainer.innerHTML = partner.reviews.map(review => `
+                    <div class="bg-warm-gray/30 rounded-lg p-4">
+                        <div class="flex items-center space-x-2 mb-2">
+                            <span class="font-medium text-sage-dark">${review.author}</span>
+                            <span class="text-yellow-500">${'⭐'.repeat(review.rating)}</span>
+                            <span class="text-xs text-gray-500">${review.date}</span>
+                        </div>
+                        <p class="text-sm text-gray-600">${review.text}</p>
+                    </div>
+                `).join('');
+
+                showPage('partner-offers');
+            }
+        }
+
+        function copyOfferCode(code) {
+            navigator.clipboard.writeText(code).then(() => {
+                // Show feedback
+                const button = event.target;
+                const originalText = button.textContent;
+                button.textContent = '✅ Code copié !';
+                button.disabled = true;
+                
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.disabled = false;
+                }, 2000);
+            }).catch(() => {
+                // Fallback for older browsers
+                alert(`Code copié : ${code}`);
+            });
+        }
+
+        function favoritePartner() {
+            const button = event.target;
+            const originalText = button.textContent;
+            button.textContent = '✅ Ajouté aux favoris !';
+            button.disabled = true;
+            
+            setTimeout(() => {
+                button.textContent = '⭐ Déjà en favoris';
+                button.disabled = false;
+            }, 2000);
+        }
+
+        function sharePartner() {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Partenaire Le Cercle des Amis Disparus',
+                    text: 'Découvrez ce partenaire solidaire !',
+                    url: window.location.href
+                });
+            } else {
+                // Fallback
+                const url = window.location.href;
+                navigator.clipboard.writeText(url).then(() => {
+                    alert('Lien copié dans le presse-papiers !');
+                });
+            }
+        }
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'984cbe84b503b2ba',t:'MTc1ODgyNjYxNC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
